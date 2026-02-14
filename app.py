@@ -1,5 +1,5 @@
 # Let's create app.py for Streamlit
-!pip install streamlit
+
 import streamlit as st
 import pandas as pd
 import joblib
