@@ -16,10 +16,8 @@ model_name = st.selectbox("Select Model",
 ("Logistic Regression","Decision Tree","kNN","Naive Bayes","Random Forest","XGBoost"))
 
 if uploaded_file:
-    data = pd.read_csv(uploaded_file)
     data = pd.read_csv(uploaded_file, sep=';')
-	st.write("Columns detected:", data.columns)
-
+    st.write("Columns detected:", data.columns)
 
     X = data.drop('quality', axis=1)
     y = (data['quality'] >= 7).astype(int)
