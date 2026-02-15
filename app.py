@@ -11,9 +11,7 @@ st.title("Wine Quality Classification")
 
 uploaded_file = st.file_uploader("Upload Test Dataset (CSV)", type=["csv"])
 
-if 'quality' not in data.columns:
-    st.error("Uploaded file must contain 'quality' column.")
-    st.stop()
+
 
 model_name = st.selectbox("Select Model",
 ("Logistic Regression","Decision Tree","kNN","Naive Bayes","Random Forest","XGBoost"))
