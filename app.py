@@ -5,34 +5,51 @@ import joblib
 from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 st.title("Wine Quality Classification")
-#uploaded_file = st.file_uploader("Upload Test Dataset (CSV)", type=["csv"])
+
 uploaded_file = st.file_uploader("Upload Test Dataset", type=["csv"])
+
 model_name = st.selectbox("Select Model",
 ("Logistic Regression","Decision Tree","kNN","Naive Bayes","Random Forest","XGBoost"))
+
+
 if uploaded_file is not None:
     data = pd.read_csv(uploaded_file, sep=';')
+
+    # It's good practice to show columns detected for debugging/user feedback
+    st.write("Columns detected:", data.columns)
 
     if 'quality' not in data.columns:
         st.error("Uploaded file must contain 'quality' column.")
         st.stop()
+
     X = data.drop('quality', axis=1)
     y = (data['quality'] >= 7).astype(int)
+
+    # Map dropdown names → actual file names (ensure these match the saved files)
     model_files = {
-        "Logistic Regression": "logistic_regression.pkl",
-        "Decision Tree": "decision_tree.pkl",
-        "kNN": "knn.pkl",
-        "Naive Bayes": "naive_bayes.pkl",
-        "Random Forest": "random_forest.pkl",
-        "XGBoost": "xgboost.pkl"
+        "Logistic Regression": "Logistic Regression.pkl",
+        "Decision Tree": "Decision Tree.pkl",
+        "kNN": "kNN.pkl",
+        "Naive Bayes": "Naive Bayes.pkl",
+        "Random Forest": "Random Forest.pkl",
+        "XGBoost": "XGBoost.pkl"
     }
-    model = joblib.load(model_files[model_name])
+
+    # Load scaler and selected model AFTER a file has been uploaded
     scaler = joblib.load("scaler.pkl")
+    model = joblib.load(model_files[model_name])
+
+    # Scale the input features
     X = scaler.transform(X)
-    model = joblib.load(f"{model_name}.pkl")
+
+    # Make predictions
     preds = model.predict(X)
+
     st.subheader("Classification Report")
     st.text(classification_report(y, preds))
+
     st.subheader("Confusion Matrix")
     cm = confusion_matrix(y, preds)
     fig, ax = plt.subplots()
