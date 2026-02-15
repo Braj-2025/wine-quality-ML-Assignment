@@ -18,6 +18,8 @@ model_name = st.selectbox("Select Model",
 if uploaded_file:
     data = pd.read_csv(uploaded_file)
     data = pd.read_csv(uploaded_file, sep=';')
+	st.write("Columns detected:", data.columns)
+
 
     X = data.drop('quality', axis=1)
     y = (data['quality'] >= 7).astype(int)
