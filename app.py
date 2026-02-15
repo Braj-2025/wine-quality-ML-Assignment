@@ -31,9 +31,20 @@ if uploaded_file is not None:
 
     X = data.drop('quality', axis=1)
     y = (data['quality'] >= 7).astype(int)
+	model_files = {
+    			"Logistic Regression": "logistic_regression.pkl",
+    			"Decision Tree": "decision_tree.pkl",
+    			"kNN": "knn.pkl",
+    			"Naive Bayes": "naive_bayes.pkl",
+    			"Random Forest": "random_forest.pkl",
+    			"XGBoost": "xgboost.pkl"
+			}
+
+scaler = joblib.load("scaler.pkl")
+model = joblib.load(model_files[model_name])
 
 
-    scaler = joblib.load("scaler.pkl")
+
     X = scaler.transform(X)
 
     model = joblib.load(f"{model_name}.pkl")
