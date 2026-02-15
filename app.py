@@ -29,12 +29,12 @@ if uploaded_file is not None:
 
     # Map dropdown names → actual file names (ensure these match the saved files)
     model_files = {
-        "Logistic Regression": "Logistic Regression.pkl",
-        "Decision Tree": "Decision Tree.pkl",
-        "kNN": "kNN.pkl",
-        "Naive Bayes": "Naive Bayes.pkl",
-        "Random Forest": "Random Forest.pkl",
-        "XGBoost": "XGBoost.pkl"
+        "Logistic Regression": "logistic_regression.pkl",
+        "Decision Tree": "decision_tree.pkl",
+        "kNN": "knn.pkl",
+        "Naive Bayes": "naive_bayes.pkl",
+        "Random Forest": "random_forest.pkl",
+        "XGBoost": "xgboost.pkl"
     }
 
     # Load scaler and selected model AFTER a file has been uploaded
