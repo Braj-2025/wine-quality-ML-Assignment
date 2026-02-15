@@ -1,5 +1,5 @@
 # Let's create app.py for Streamlit
-
+!pip install streamlit
 import streamlit as st
 import pandas as pd
 import joblib
@@ -12,12 +12,12 @@ st.title("Wine Quality Classification")
 uploaded_file = st.file_uploader("Upload Test Dataset (CSV)", type=["csv"])
 
 
-
 model_name = st.selectbox("Select Model",
 ("Logistic Regression","Decision Tree","kNN","Naive Bayes","Random Forest","XGBoost"))
 
 if uploaded_file:
     data = pd.read_csv(uploaded_file)
+    data = pd.read_csv(uploaded_file, sep=';')
 
     X = data.drop('quality', axis=1)
     y = (data['quality'] >= 7).astype(int)
