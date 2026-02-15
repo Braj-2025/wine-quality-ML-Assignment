@@ -9,18 +9,29 @@ import seaborn as sns
 
 st.title("Wine Quality Classification")
 
-uploaded_file = st.file_uploader("Upload Test Dataset (CSV)", type=["csv"])
+#uploaded_file = st.file_uploader("Upload Test Dataset (CSV)", type=["csv"])
+
+
+uploaded_file = st.file_uploader("Upload Test Dataset", type=["csv"])
+
 
 
 model_name = st.selectbox("Select Model",
 ("Logistic Regression","Decision Tree","kNN","Naive Bayes","Random Forest","XGBoost"))
 
-if uploaded_file:
-    data = pd.read_csv(uploaded_file, sep=';')
+
+if uploaded_file is not None:
+    data = pd.read_csv(uploaded_file, sep=';')   # IMPORTANT FIX
+
     st.write("Columns detected:", data.columns)
+    
+    if 'quality' not in data.columns:
+        st.error("Uploaded file must contain 'quality' column.")
+        st.stop()
 
     X = data.drop('quality', axis=1)
     y = (data['quality'] >= 7).astype(int)
+
 
     scaler = joblib.load("scaler.pkl")
     X = scaler.transform(X)
